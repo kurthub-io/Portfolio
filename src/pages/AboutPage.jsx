@@ -43,8 +43,8 @@ export default function AboutPage() {
           {/* Download Resume */}
           <div className="flex justify-center md:justify-start">
             <a
-              href="/Portfolio/Resume/Kurt_Resume.pdf"
-              download="My_Resume.pdf"
+              href="/Portfolio/Resume/Kurt_Aquino_Resume.pdf"
+              download="Kurt_Resume.pdf"
               className="flex items-center gap-2 px-5 py-2 text-white border border-blue-400 rounded-lg shadow-lg 
              bg-gradient-to-r from-blue-600 to-cyan-500 
              hover:from-blue-500 hover:to-cyan-400 hover:shadow-[0_0_20px_rgba(59,130,246,0.6)] 
