@@ -11,7 +11,7 @@ import FooterComponent from "./components/FooterComponent";
 function App() {
   return (
     <div className="w-full min-h-screen text-white bg-base-100">
-      <section id="navbar">
+      <section id="navbar" className="mb-40">
         {/* Navbar */}
         <Navbar />
       </section>

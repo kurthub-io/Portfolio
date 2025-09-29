@@ -1,37 +1,65 @@
 import { Link } from "react-scroll";
 import React, { useEffect, useState } from "react";
-import { Sun, MoonStar } from "lucide-react";
+// import { Sun, MoonStar } from "lucide-react"; // 🔒 Dark mode icons temporarily commented out
 import { Dlinks } from "../data/dataLinks";
 import LogoDark from "../assets/My Photo/K__1_-removebg-preview.png";
 import LogoLight from "../assets/My Photo/K-removebg-preview.png";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [theme, setTheme] = useState(
-    localStorage.getItem("theme") || "mylight"
-  );
 
-  function handleToggleTheme() {
-    const newTheme = theme === "mylight" ? "mydark" : "mylight";
-    setTheme(newTheme);
-    document.documentElement.setAttribute("data-theme", newTheme);
-    localStorage.setItem("theme", newTheme);
-  }
+  // 🔒 Dark mode logic temporarily commented out
+  // const [theme, setTheme] = useState(
+  //   localStorage.getItem("theme") || "mylight"
+  // );
+
+  // function handleToggleTheme() {
+  //   const newTheme = theme === "mylight" ? "mydark" : "mylight";
+  //   setTheme(newTheme);
+  //   document.documentElement.setAttribute("data-theme", newTheme);
+  //   localStorage.setItem("theme", newTheme);
+  // }
+
+  // useEffect(() => {
+  //   document.documentElement.setAttribute("data-theme", theme);
+  // }, [theme]);
+
+  // 👇 Navbar show/hide states
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  
 
   useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme]);
+    const handleScroll = () => {
+      if (window.innerWidth < 768) {
+        // Mobile only
+        if (window.scrollY > lastScrollY) {
+          setShowNavbar(false); // scrolling down → hide
+        } else {
+          setShowNavbar(true); // scrolling up → show
+        }
+        setLastScrollY(window.scrollY);
+      } else {
+        // Desktop → always show
+        setShowNavbar(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   return (
-    <nav className="fixed top-0 left-0 z-50 w-full shadow-xl bg-base-100 text-base-content">
+    <nav
+      className={`fixed top-0 left-0 z-50 w-full shadow-xl bg-base-100 text-base-content transition-transform duration-300 ${
+        showNavbar ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="flex items-center justify-between px-4 py-3 mx-auto max-w-7xl">
         {/* Logo */}
         <a href="#home" className="flex items-center gap-2 cursor-pointer">
-          {theme === "mylight" ? (
-            <img src={LogoLight} alt="Light Logo" className="w-12 sm:w-16" />
-          ) : (
-            <img src={LogoDark} alt="Dark Logo" className="w-12 sm:w-16" />
-          )}
+          {/* 🔒 For now, always use light logo */}
+          <img src={LogoDark} alt="Logo" className="w-12 sm:w-16" />
           <span className="text-lg font-bold">Kurt</span>
         </a>
 
@@ -54,10 +82,10 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Dark/Light Toggle */}
-          <button type="button" onClick={handleToggleTheme}>
-            {theme ? <Sun size={30} /> : <MoonStar size={30} />}
-          </button>
+          {/* 🔒 Dark/Light Toggle temporarily commented out */}
+          {/* <button type="button" onClick={handleToggleTheme}>
+            {theme === "mylight" ? <Sun size={30} /> : <MoonStar size={30} />}
+          </button> */}
         </div>
 
         {/* Mobile Hamburger */}
